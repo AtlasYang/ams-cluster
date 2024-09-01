@@ -1,0 +1,110 @@
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 420px;
+    min-height: 60%;
+    max-height: 400px;
+    padding: 20px 30px;
+    gap: 20px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.container input {
+    margin: 0 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.container .back {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    cursor: pointer;
+}
+
+.container h1 {
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.groupList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 100%;
+    padding: 20px 10px;
+
+    overflow-y: auto;
+}
+
+.groupList .spacer {
+    flex: 1;
+}
+
+.group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.group .groupInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.group .groupInfo h2 {
+    font-size: 1.2rem;
+}
+
+.group .groupInfo p {
+    font-size: 0.9rem;
+    font-weight: 300;
+}
+
+.empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.empty p {
+    font-size: 1.2rem;
+    font-weight: 300;
+}
+
+.container button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--primary-color);
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.container button:hover {
+    background-color: #333;
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        box-shadow: none;
+    }
+}

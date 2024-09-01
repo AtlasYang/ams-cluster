@@ -1,0 +1,277 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 20px 20px;
+    background-color: #000;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    background-color: #FFF;
+    padding: 20px 20px;
+    overflow: hidden;
+}
+
+.header {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+}
+
+.header button {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.header .spacer {
+    flex: 1;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+    color: #000;
+
+}
+
+.header .menu {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    padding: 6px 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.header .menu.active {
+    background-color: #f3f3f3;
+}
+
+.header .menu span {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    padding: 2px 6px;
+    border-radius: 10px;
+    background-color: #ff3a3a;
+    color: #FFF;
+    font-size: 12px;
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    width: 100%;
+    height: 100%;
+}
+
+.memberList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+
+    overflow-y: auto;
+}
+
+.memberItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+.memberItem h1 {
+    font-size: 1.0rem;
+    font-weight: 400;
+    display: flex;
+    flex: 3;
+    overflow: hidden;
+}
+
+.memberItem h2 {
+    font-size: 1.0rem;
+    font-weight: 400;
+    display: flex;
+    flex: 2;
+    overflow: hidden;
+}
+
+.memberItem h3 {
+    font-size: 1.0rem;
+    font-weight: 400;
+    display: flex;
+    flex: 2;
+    overflow: hidden;
+}
+
+.memberItem h4 {
+    font-size: 1.0rem;
+    font-weight: 400;
+    display: flex;
+    flex: 4;
+}
+
+.memberItem div {
+    display: flex;
+    flex: 2;
+}
+
+.memberItem div {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.memberItem div button {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.addSession {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.addSession input {
+    outline: none;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.addSession textarea {
+    outline: none;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    resize: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.addSession button {
+    outline: none;
+    border: none;
+    background-color: #000000;
+    color: #FFF;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.addSession h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #000;
+}
+
+.addSession p {
+    font-size: 1rem;
+    font-weight: 300;
+    color: #000;
+}
+
+.weekdays {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.weekday {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.3s;
+}
+
+.weekday.active {
+    background-color: #f3f3f3;
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 20px 10px;
+    }
+
+    .header {
+        gap: 10px;
+    }
+
+    .header h1 {
+        font-size: 20px;
+    }
+
+    .header .menu {
+        padding: 4px 8px;
+    }
+
+    .header .menu span {
+        top: -8px;
+        right: -8px;
+        padding: 2px 4px;
+        font-size: 10px;
+    }
+
+    .body {
+        padding: 10px 0;
+    }
+
+    .memberItem {
+        padding: 10px 10px;
+    }
+
+    .memberItem h1 {
+        font-size: 0.8rem;
+    }
+
+    .memberItem h2 {
+        font-size: 0.8rem;
+    }
+
+    .memberItem h3 {
+        font-size: 0.8rem;
+    }
+
+    .memberItem h4 {
+        font-size: 0.8rem;
+    }
+
+    .memberItem div {
+        flex: 1;
+    }
+
+    .memberItem button {
+        padding: 4px 8px;
+    }
+}

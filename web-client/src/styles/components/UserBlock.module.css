@@ -1,0 +1,31 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: fit-content;
+    padding: 10px;
+    gap: 10px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.container img {
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+}
+
+.info h3 {
+    font-weight: 300;
+    font-size: 1.2rem;
+}
+
+.info p {
+    font-size: 0.9rem;
+    color: #666;
+}

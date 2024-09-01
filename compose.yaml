@@ -1,0 +1,75 @@
+services:
+  main-database:
+    build:
+      context: ./main-database
+      dockerfile: Dockerfile
+      network: host
+    container_name: ams-main-db
+    ports:
+      - ${MAIN_DB_PORT_BINDING}
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - ams-main-db:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        ["CMD", "pg_isready", "-U", "${POSTGRES_USER}", "-d", "${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 10s
+      retries: 10
+
+  main-storage:
+    image: minio/minio
+    container_name: ams-main-storage
+    volumes:
+      - ${MAIN_STORAGE_VOLUME_MOUNT}
+    ports:
+      - ${MAIN_STORAGE_PORT_BINDING}
+      - ${MAIN_STORAGE_PORT_BINDING_2}
+    environment:
+      - MINIO_ROOT_USER=${MINIO_ROOT_USER}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
+    command: ${MAIN_STORAGE_COMMAND}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "${MAIN_STORAGE_HEALTHCHECK_URL}"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  main-server:
+    build:
+      context: ./main-server
+      dockerfile: Dockerfile
+      network: host
+    container_name: ams-main-server
+    ports:
+      - ${MAIN_SERVER_PORT_BINDING}
+    environment:
+      - STORAGE_HOST=${STORAGE_HOST}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+      - MINIO_ACCESS_KEY_ID=${MINIO_ACCESS_KEY_ID}
+      - MINIO_SECRET_ACCESS_KEY=${MINIO_SECRET_ACCESS_KEY}
+      - MINIO_URL=${MINIO_URL}
+    depends_on:
+      main-database:
+        condition: service_healthy
+
+  web-client:
+    build:
+      context: ./web-client
+      dockerfile: Dockerfile
+      network: host
+    container_name: ams-web-client
+    ports:
+      - ${WEB_CLIENT_PORT_BINDING}
+    depends_on:
+      - main-server
+
+volumes:
+  ams-main-db:
+    external: false
