@@ -1,8 +1,10 @@
-# AMS-CLUSTER
+![logo](https://storage.ams.lighterlinks.io/assets/logo-text.svg)
+
+# AMS-Cluster
 
 AMS (Attendance Management System) is an integrated web service platform designed for clubs and groups to easily manage attendance records.
 
-The AMS-Cluster comprises four instances that implement the AMS web service:
+The ams-cluster comprises four instances that implement the AMS web service:
 
 - **main-server:** The web server
 - **main-database:** PostgreSQL database schema for the web service
