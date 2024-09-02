@@ -8,5 +8,6 @@ import { MemberModule } from 'src/member/member.module';
   imports: [DbModule, MemberModule],
   providers: [GroupService],
   controllers: [GroupController],
+  exports: [GroupService],
 })
 export class GroupModule {}

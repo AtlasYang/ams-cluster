@@ -14,6 +14,7 @@ import {
   SessionParticipationCreateDto,
 } from './session.interface';
 import * as qrcode from 'qrcode';
+import { GroupService } from 'src/group/group.service';
 
 const SECRET_LENGTH = 24;
 
@@ -22,6 +23,7 @@ export class SessionService {
   constructor(
     @Inject(PG_CONNECTION) private readonly conn: Client,
     private readonly memberService: MemberService,
+    private readonly groupService: GroupService,
     private readonly fileService: FileService,
   ) {}
 
@@ -221,6 +223,38 @@ export class SessionService {
       `UPDATE sessions SET tags = 'closed' WHERE session_id = $1`,
       [sessionId],
     );
+
+    // calculate penlaties
+    const groupData = await this.groupService.getGroupById(
+      group.rows[0].group_id,
+    );
+
+    if (!groupData) {
+      return false;
+    }
+
+    if (groupData.use_unattendance_penalty) {
+      const participations = await this.getParticipationsBySessionId(sessionId);
+
+      for (const participation of participations) {
+        if (participation.participation_state === 2) {
+          await this.memberService.addPenaltyPoint({
+            memberId: participation.member_id,
+            penaltyType: 2,
+          });
+        } else if ([3, 5].includes(participation.participation_state)) {
+          await this.memberService.addPenaltyPoint({
+            memberId: participation.member_id,
+            penaltyType: 0,
+          });
+        } else if (participation.participation_state === 4) {
+          await this.memberService.addPenaltyPoint({
+            memberId: participation.member_id,
+            penaltyType: 1,
+          });
+        }
+      }
+    }
 
     return true;
   }

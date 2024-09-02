@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.ico",
   },
+  manifest: "/manifest.json",
   metadataBase: new URL("https://ams.lighterlinks.io"),
   openGraph: {
     type: "website",
@@ -78,7 +79,11 @@ export default function RootLayout({
           sizes="16x16"
           href="/icons/favicon-16x16.png"
         />
-        <link rel="manifest" href="/manifest.json" />
+        <link
+          rel="manifest"
+          href="/manifest.json"
+          crossOrigin="use-credentials"
+        />
         <link
           rel="mask-icon"
           href="/icons/safari-pinned-tab.svg"
