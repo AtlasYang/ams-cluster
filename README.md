@@ -25,6 +25,18 @@ The ams-cluster comprises four instances that implement the AMS web service:
 2. Submit evidence materials for approved absences.
 3. View your attendance status clearly and conveniently.
 
+### Get Started
+
+Ensure that [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/install/linux/) are installed on your machine.
+
+Next, create a `.env` file in the project root directory using the `.env-template`.
+
+Finally, run the following command in the project root:
+
+```sh
+docker compose up -d
+```
+
 ## Contact
 
 If you encounter any issues or have any questions, feel free to reach out to [me](mailto:atlas.yang3598@gmail.com) at any time.
