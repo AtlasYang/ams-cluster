@@ -296,6 +296,12 @@
     overflow: hidden;
 }
 
+.requestItem h3 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    overflow: hidden;
+}
+
 .requestItem h2 {
     font-size: 0.85rem;
     font-weight: 300;

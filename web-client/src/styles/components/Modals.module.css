@@ -39,6 +39,12 @@
     color: #000;
 }
 
+.container h3 {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #000;
+}
+
 .container textarea {
     width: 100%;
     padding: 10px;

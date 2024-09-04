@@ -23,7 +23,7 @@ export default function SettingScreen({ groupData }: { groupData: Group }) {
       </button>
       <div className={styles.info}>
         <p>
-          개발자 연락처: <a href="mailto:atlas.yang3598@gmail.com">이메일</a>
+          오류/버그 제보: <a href="mailto:atlas.yang3598@gmail.com">이메일</a>
         </p>
       </div>
     </div>

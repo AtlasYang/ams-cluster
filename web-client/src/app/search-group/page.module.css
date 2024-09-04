@@ -107,4 +107,8 @@
     .container {
         box-shadow: none;
     }
+
+    .container .back {
+        left: 50px;
+    }
 }

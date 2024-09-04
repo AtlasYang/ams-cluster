@@ -180,8 +180,10 @@ export default function GroupAdminAttendancePage() {
               {allAttendanceRequests.length === 0 && <h5>요청이 없습니다.</h5>}
               {allAttendanceRequests.map((request) => (
                 <div key={request.session_id} className={styles.requestItem}>
+                  <h3>{request.member_name}</h3>
                   <h1>{request.request_message}</h1>
-                  {request.evidence_file_url && (
+                  {(request.evidence_file_url !== "" ||
+                    request.evidence_file_url !== null) && (
                     <a
                       onClick={() => {
                         if (!request.evidence_file_url) {
@@ -200,7 +202,9 @@ export default function GroupAdminAttendancePage() {
                     </a>
                   )}
                   <div className={styles.spacer} />
-                  <p>{request.request_approved.toString()}</p>
+                  {request.request_checked && (
+                    <p>{request.request_approved ? "승인됨" : "거절됨"}</p>
+                  )}
                   <h2>{formatDate(request.created_at)}</h2>
                   {!request.request_checked && (
                     <>

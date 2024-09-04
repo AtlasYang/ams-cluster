@@ -16,7 +16,8 @@ import {
 import * as qrcode from 'qrcode';
 import { GroupService } from 'src/group/group.service';
 
-const SECRET_LENGTH = 24;
+const SECRET_LENGTH = 72;
+const QR_IDENTIFIER_LENGTH = 24;
 
 @Injectable()
 export class SessionService {
@@ -283,7 +284,7 @@ export class SessionService {
     }
 
     const qrCodeBuffer = await qrcode.toBuffer(sessionSecret);
-    const qrCodeIdentifier = this.generateSessionSecret(SECRET_LENGTH);
+    const qrCodeIdentifier = this.generateSessionSecret(QR_IDENTIFIER_LENGTH);
 
     const qrCodeLink = await this.fileService.uploadQRCode(
       qrCodeBuffer,
@@ -550,16 +551,22 @@ export class SessionService {
     memberId: number,
   ): Promise<SessionAttendanceRequest[]> {
     const queryRes = await this.conn.query(
-      `SELECT
-          session_attendance_request_id,
-          session_id,
-          member_id,
-          request_message,
-          evidence_file_url,
-          request_checked,
-          request_approved,
-          created_at
-      FROM session_attendance_requests WHERE member_id = $1`,
+      `
+      SELECT
+        saq.session_attendance_request_id,
+        saq.session_id,
+        saq.member_id,
+        u.name as member_name,
+        saq.request_message,
+        saq.evidence_file_url,
+        saq.request_checked,
+        saq.request_approved,
+        saq.created_at
+      FROM session_attendance_requests saq
+      JOIN members m ON saq.member_id = m.member_id
+      JOIN users u ON m.user_id = u.user_id
+      WHERE saq.member_id = $1
+      `,
       [memberId],
     );
 
@@ -571,15 +578,19 @@ export class SessionService {
   ): Promise<SessionAttendanceRequest[]> {
     const queryRes = await this.conn.query(
       `SELECT
-          session_attendance_request_id,
-          session_id,
-          member_id,
-          request_message,
-          evidence_file_url,
-          request_checked,
-          request_approved,
-          created_at
-      FROM session_attendance_requests WHERE session_id = $1`,
+          saq.session_attendance_request_id,
+          saq.session_id,
+          saq.member_id,
+          u.name as member_name,
+          saq.request_message,
+          saq.evidence_file_url,
+          saq.request_checked,
+          saq.request_approved,
+          saq.created_at
+      FROM session_attendance_requests saq
+      JOIN members m ON saq.member_id = m.member_id
+      JOIN users u ON m.user_id = u.user_id
+      WHERE saq.session_id = $1`,
       [sessionId],
     );
 

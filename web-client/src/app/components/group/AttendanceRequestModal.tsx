@@ -1,15 +1,16 @@
 "use client";
 
 import { successToast } from "@/lib/toast";
+import { Session } from "@/service/session/interface";
 import { useService } from "@/service/useService";
 import styles from "@/styles/components/Modals.module.css";
 import { useState } from "react";
 
 export default function AttendanceRequestModal({
-  sessionId,
+  session,
   close,
 }: {
-  sessionId: number;
+  session: Session;
   close: () => void;
 }) {
   const [message, setMessage] = useState<string>("");
@@ -18,7 +19,7 @@ export default function AttendanceRequestModal({
 
   const handleSendAttendanceRequest = async () => {
     await sessionService.createAttendanceRequest({
-      session_id: sessionId,
+      session_id: session.session_id,
       request_message: message,
       evidence_file_url: evidenceFileUrl ?? undefined,
     });
@@ -42,6 +43,7 @@ export default function AttendanceRequestModal({
         <span>&times;</span>
       </button>
       <h1>출석 인정 신청</h1>
+      <h3>세션 날짜: {new Date(session.session_date).toLocaleDateString()}</h3>
       <textarea
         placeholder="출석 인정 신청 사유를 입력해주세요."
         value={message}

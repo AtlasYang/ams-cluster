@@ -11,8 +11,8 @@ export default function QRCodeScreen({
   groupData,
   updateGroup,
 }: {
-  groupData: Group;
-  updateGroup: () => void;
+  groupData?: Group;
+  updateGroup?: () => void;
 }) {
   const [result, setResult] = useState<string>("");
   const { sessionService, groupService } = useService();
@@ -91,7 +91,9 @@ export default function QRCodeScreen({
       errorToast("출석에 실패했습니다.");
     }
 
-    updateGroup();
+    if (updateGroup) {
+      updateGroup();
+    }
   };
 
   useEffect(() => {
@@ -102,7 +104,7 @@ export default function QRCodeScreen({
 
   return (
     <div className={styles.containerDark}>
-      <h3>QR 코드를 스캔하여 세션에 출석하세요.</h3>
+      {/* <h3>QR 코드를 스캔하여 세션에 출석하세요.</h3> */}
       <video ref={ref} width={360} style={{ borderRadius: 10 }} />
       <div />
     </div>

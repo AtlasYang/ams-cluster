@@ -3,7 +3,7 @@
 import styles from "@/styles/group/MobileView.module.css";
 import { participationStatus } from "@/lib/constants";
 import { Group } from "@/service/group/interface";
-import { SessionParticipation } from "@/service/session/interface";
+import { Session, SessionParticipation } from "@/service/session/interface";
 import { useService } from "@/service/useService";
 import { useEffect, useState } from "react";
 import useModal from "@/lib/useModal";
@@ -14,7 +14,7 @@ export default function AttendanceScreen({ groupData }: { groupData: Group }) {
     []
   );
   const { sessionService } = useService();
-  const [todaySessionId, setTodaySessionId] = useState<number | null>(null);
+  const [todaySession, setTodaySession] = useState<Session | null>(null);
   const {
     openModal: openAttendanceRequestModal,
     closeModal: closeAttendanceRequestModal,
@@ -34,7 +34,7 @@ export default function AttendanceScreen({ groupData }: { groupData: Group }) {
       group_id: groupData.group_id,
     });
 
-    setTodaySessionId(todaySession.session_id ?? null);
+    setTodaySession(todaySession ?? null);
   };
 
   useEffect(() => {
@@ -44,7 +44,7 @@ export default function AttendanceScreen({ groupData }: { groupData: Group }) {
 
   return (
     <div className={styles.container}>
-      {todaySessionId && (
+      {todaySession && (
         <button
           className={styles.topRightButton}
           onClick={() => {
@@ -75,12 +75,13 @@ export default function AttendanceScreen({ groupData }: { groupData: Group }) {
           </div>
         ))}
       </div>
-      {renderAttendanceRequestModal(
-        <AttendanceRequestModal
-          close={closeAttendanceRequestModal}
-          sessionId={todaySessionId ?? -1}
-        />
-      )}
+      {todaySession &&
+        renderAttendanceRequestModal(
+          <AttendanceRequestModal
+            close={closeAttendanceRequestModal}
+            session={todaySession}
+          />
+        )}
     </div>
   );
 }

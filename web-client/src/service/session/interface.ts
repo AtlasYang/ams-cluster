@@ -39,6 +39,7 @@ export interface SessionAttendanceRequest {
   session_attendance_request_id: number;
   session_id: number;
   member_id: number;
+  member_name: string;
   request_message: string;
   evidence_file_url?: string;
   request_checked: boolean;

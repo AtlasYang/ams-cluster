@@ -134,3 +134,10 @@
     opacity: 1;
     transform: scale(1.1);
 }
+
+@media screen and (max-width: 768px) {
+    .header h3 {
+        font-size: 1.2rem;
+        overflow: hidden;
+    }
+}
