@@ -16,6 +16,11 @@ import CircleXMarkIcon from "@/assets/icons/CircleXMarkIcon";
 import XMarkIcon from "@/assets/icons/XMarkIcon";
 import { motion } from "framer-motion";
 import QRCodeScanIcon from "@/assets/icons/QRCodeScanIcon";
+import dynamic from "next/dynamic";
+
+const FABComponent = dynamic(() => import("./components/HomeFAB"), {
+  ssr: false,
+});
 
 export default function Home() {
   const [user, setUser] = useState<User | null>(null);
@@ -55,47 +60,8 @@ export default function Home() {
             onClick={() => setIsBigButtonSectionOpen(false)}
           ></div>
         )}
-        {!isQRCodeSectionOpen && (
-          <div
-            className={`${styles.buttonSection} ${
-              isBigButtonSectionOpen && styles.open
-            }`}
-          >
-            <button
-              className={`${styles.bigButton2} ${
-                isBigButtonSectionOpen && styles.open
-              }`}
-              onClick={() => {
-                router.push("/search-group");
-              }}
-            >
-              <SearchIcon size={24} color="black" />
-              <div>
-                <h2>그룹 찾아보기</h2>
-                <p>다양한 그룹을 탐색하고 참여해보세요.</p>
-              </div>
-            </button>
-            <button
-              className={`${styles.bigButton1} ${
-                isBigButtonSectionOpen && styles.open
-              }`}
-              onClick={() => {
-                if (!isBigButtonSectionOpen) {
-                  setIsBigButtonSectionOpen(!isBigButtonSectionOpen);
-                } else {
-                  router.push("/create-group");
-                }
-              }}
-            >
-              <PlusIcon size={36} color="black" />
-              <div>
-                <h2>그룹 만들기</h2>
-                <p>새로운 그룹을 만들어보세요!</p>
-              </div>
-            </button>
-          </div>
-        )}
-        {!isQRCodeSectionOpen && (
+        {!isQRCodeSectionOpen ? <FABComponent /> : <></>}
+        {!isQRCodeSectionOpen ? (
           <>
             <div className={styles.header}>
               <img src="/logo.svg" alt="logo" width={48} height={48} />
@@ -125,6 +91,8 @@ export default function Home() {
               )}
             </div>
           </>
+        ) : (
+          <></>
         )}
         <motion.div
           initial={{ opacity: 0.7, scale: 0.8 }}
